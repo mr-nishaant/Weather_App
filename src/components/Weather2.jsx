@@ -104,7 +104,7 @@ function Weather() {
                 : "url('https://img.freepik.com/premium-photo/futuristic-christmas-terraformed-mars-colony_1033508-486.jpg')", }} 
         >
           <div className="flex flex-col items-center">
-            <h1 className={`text-6xl font-orbitron  mb-4 animate-glow text-white }`}>👽 Weather <span><img src={data.icon} alt="icon" className=" inline-flex"></img></span></h1>
+            <h1 className={`text-6xl font-orbitron  mb-4 animate-glow text-white }`}>👽 Weather</h1>
             <h2 className="text-3xl font-audiowide text-white mb-2 animate-glow">{data.city}</h2>
             <CurrentWeather data={data} />
           </div>
