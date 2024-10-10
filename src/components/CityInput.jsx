@@ -1,16 +1,15 @@
+// src/components/CityInput.js
 import React from 'react';
 
 const CityInput = ({ city, setCity }) => {
   return (
-    <div className="inline-flex justify-center items-center w-full">
-      <input
-        type="text"
-        placeholder="Enter your city"
-        value={city}
-        onChange={(e) => setCity(e.target.value)}
-        className="rounded-full border-2 border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-700 w-72 text-black placeholder:text-blue-900"
-      />
-    </div>
+    <input
+      type="text"
+      value={city}
+      onChange={(e) => setCity(e.target.value)}
+      placeholder="Enter city name..."
+      className="w-full max-w-md px-6 py-3 bg-transparent border border-neon-blue rounded-full text-white font-audiowide placeholder-neon-blue focus:outline-none focus:ring-2 focus:ring-neon-pink transition duration-300 animate-glow"
+    />
   );
 };
 

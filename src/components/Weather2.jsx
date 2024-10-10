@@ -1,3 +1,4 @@
+// src/components/Weather.js
 import React, { useState, useEffect } from "react";
 import CityInput from "./CityInput";
 import CurrentWeather from "./CurrentWeather";
@@ -45,11 +46,15 @@ function Weather() {
             const forecastHour = forecastTime.getHours();
             const forecastDay = forecastTime.getDate();
 
-            if ((forecastDay === currentDay && forecastHour >= currentHour) || forecastDay > currentDay) {
+            if (
+              (forecastDay === currentDay && forecastHour >= currentHour) ||
+              forecastDay > currentDay
+            ) {
               nextTemps.push({
                 time: hourData.time,
                 temperature: `${hourData.temp_c}°`,
-                ico1: hourData.condition.icon,
+                icon: hourData.condition.icon,
+                condition: hourData.condition.text,
               });
               count++;
               if (count >= 12) return;
@@ -65,6 +70,7 @@ function Weather() {
           humidity: `${res.current.humidity}%`,
           windSpeed: `${res.current.wind_kph}kph`,
           isDay: res.current.is_day,
+          icon: res.current.condition.icon,
         });
         setError(null);
       } catch (err) {
@@ -78,36 +84,41 @@ function Weather() {
   }, [debouncedCity]);
 
   return (
-    <div className="bg-gradient-to-r from-green-200 to-gray-400">
-      <div className="max-w-screen-xl mx-auto px-6 md:px-10 lg:px-16 py-16 pt-20">
-        <div className="bg-white rounded-2xl shadow-2xl shadow-black overflow-hidden">
-          <div className="flex bg-slate-900 shadow-md shadow-neutral-950 text-zinc-100 pl-2">
-            <CityInput city={city} setCity={setCity} />
-          </div>
-          <div style={{ backgroundImage: data.isDay
-                ? "url('https://media.istockphoto.com/id/1007768414/photo/blue-sky-with-bright-sun-and-clouds.jpg?s=612x612&w=0&k=20&c=MGd2-v42lNF7Ie6TtsYoKnohdCfOPFSPQt5XOz4uOy4=')"
-                : "url('https://img.freepik.com/free-photo/digital-art-moon-wallpaper_23-2150918713.jpg')", }} className="bg-cover bg-center pb-2">
-            <div className="pl-4">
-              <h1
-                className={`font-bold text-5xl font-serif ${data.isDay ? 'text-blue' : 'text-white'}`}
-                style={{ textShadow: "3px 3px 6px rgba(0, 0, 0, 0.6)", transform: "perspective(500px) rotateX(15deg)" }}
-              >
-                Weather
-              </h1>
-              <h2
-                className={`font-bold text-2xl pl-7 font-serif ${data.isDay ? 'text-slate-900' : 'text-white'}`}
-                style={{ textShadow: "3px 3px 6px rgba(0, 0, 0, 0.6)", transform: "perspective(500px) rotateX(15deg)" }}
-              >
-                {data.city}
-              </h2>
-              <CurrentWeather data={data} />
-            </div>
-          </div>
-          <div className="bg-slate-900">
-            <HourlyForecast hourlyTemps={hourlyTemps} />
-            {error && <p className="text-red-500 pl-4">{error}</p>}
+    <div className="relative min-h-screen bg-transparent flex items-center justify-center p-4">
+      {/* Starry Background */}
+      <div className="starry-background"></div>
+
+      <div className="bg-white bg-opacity-10 backdrop-filter backdrop-blur-lg rounded-3xl shadow-neon p-6 max-w-4xl w-full relative z-10">
+        {/* Header with City Input */}
+        <div className="flex justify-center mb-6">
+          <CityInput city={city} setCity={setCity} />
+        </div>
+
+        {/* Current Weather Section */}
+        <div
+          className={`bg-gradient-to-r ${
+            data.isDay ? "from-blue-900 to-purple-600" : "from-gray-800 to-black"
+          } bg-opacity-50 backdrop-filter backdrop-blur-md rounded-2xl p-6 mb-6 transition duration-500`}
+          div style={{ backgroundImage: data.isDay
+                ? "url('https://img.freepik.com/premium-photo/concept-sustainability-adventure-tourism-industry_883586-15746.jpg')"
+                : "url('https://img.freepik.com/premium-photo/futuristic-christmas-terraformed-mars-colony_1033508-486.jpg')", }} 
+        >
+          <div className="flex flex-col items-center">
+            <h1 className={`text-6xl font-orbitron  mb-4 animate-glow text-white }`}>👽 Weather <span><img src={data.icon} alt="icon" className=" inline-flex"></img></span></h1>
+            <h2 className="text-3xl font-audiowide text-white mb-2 animate-glow">{data.city}</h2>
+            <CurrentWeather data={data} />
           </div>
         </div>
+
+        {/* Hourly Forecast Section */}
+        <div className="bg-opacity-50 backdrop-filter backdrop-blur-md rounded-2xl">
+          <HourlyForecast hourlyTemps={hourlyTemps} />
+        </div>
+
+        {/* Error Message */}
+        {error && (
+          <p className="text-red-400 text-center mt-4 animate-pulse">{error}</p>
+        )}
       </div>
     </div>
   );
