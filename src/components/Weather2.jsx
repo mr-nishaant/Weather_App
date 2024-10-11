@@ -98,8 +98,8 @@ function Weather() {
           className={`bg-gradient-to-r ${data.isDay ? "from-blue-900 to-purple-600" : "from-gray-800 to-black"} bg-opacity-50 backdrop-filter backdrop-blur-md rounded-2xl p-6 mb-6 transition duration-500`}
           style={{
             backgroundImage: data.isDay
-              ? "url('https://img.freepik.com/premium-photo/concept-sustainability-adventure-tourism-industry_883586-15746.jpg')"
-              : "url('https://img.freepik.com/premium-photo/futuristic-christmas-terraformed-mars-colony_1033508-486.jpg')",
+              ? "url('https://ednews.net/uploads/news/22997/72fc9b61-097b-3493-bb81-e5478bb5c310_850.jpeg')"
+              : "url('https://fox17.com/resources/media2/16x9/full/1015/center/80/3af3a8f8-1c59-4b42-b0bb-f58ccadd0e1b-large16x9_85082514_481992939141415_3757870107942977536_n.jpg')",
           }}
         >
           <div className="flex flex-col items-center">
