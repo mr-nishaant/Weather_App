@@ -79,7 +79,7 @@ const HourlyForecast = ({ hourlyTemps }) => {
                 alt={temp.condition}
                 className="w-16 h-16 my-4"
               />
-              <span className="text-3xl font-audiowide text-neon-pink">{temp.temperature}</span>
+              <span className="text-3xl font-audiowide text-neon-pink">{Math.round(parseInt(temp.temperature))}</span>
             </div>
           ))}
         </div>
